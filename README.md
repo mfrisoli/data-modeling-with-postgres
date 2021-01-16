@@ -15,12 +15,12 @@ The pipeline and schema allows to obtain insight of songs played by Sparkify use
 Using Pandas library, the data is extracted from JSON files and transoformed into a Pandas DataFrame, then this data gets arranged as required by the design of the schema and loaded into a PosgreSQL database so it can be queried.
 
 ## Index:
-1. [Schema](#1.-star-Schema)
-2. [Requirements & Technologies](#2.-Requirements-&-Technologies)
-3. [Files](#3.-files)
-4. [Pre-requisites](#4.-pre-requisites)
-5. [How to run](#5.-how-to-run)
-6. [Postgres notes](#6.-postgresql-notes)
+1. [Schema](#1-star-Schema)
+2. [Requirements & Technologies](#2-Requirements-&-Technologies)
+3. [Files](#3-files)
+4. [Pre-requisites](#4-pre-requisites)
+5. [How to run](#5-how-to-run)
+6. [Postgres notes](#6-postgresql-notes)
 
 
 ## 1. Star Schema
