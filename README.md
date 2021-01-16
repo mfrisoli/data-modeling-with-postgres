@@ -18,11 +18,13 @@ Using Pandas library, the data is extracted from JSON files and transoformed int
 1. Schema
 2. Requirements
 3. Files
-4. How to run
+4. Pre-requisites
+5. How to run
 
 
 ## 1. Star Schema
-
+The star schema is the simplest style of data mart schema and is the approach most widely used to develop data warehouses and dimensional data marts. The star schema consists of one or more fact tables referencing any number of dimension tables. The star schema is an important special case of the snowflake schema, and is more effective for handling simpler queries
+Source: [Wikipedia](https://en.wikipedia.org/wiki/Star_schema)
 
 
 
@@ -30,7 +32,7 @@ Using Pandas library, the data is extracted from JSON files and transoformed int
 - songplays - records in log data associated with song plays i.e. records with page NextSong
 -- songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent
 
-### Dimension Tables
+#### Dimension Tables
 - users - users in the app
 -- user_id, first_name, last_name, gender, level
 - songs - songs in music database
@@ -41,32 +43,56 @@ Using Pandas library, the data is extracted from JSON files and transoformed int
 -- start_time, hour, day, week, month, year, weekday
 
 ![Star Schema](https://udacity-reviews-uploads.s3.us-west-2.amazonaws.com/_attachments/339318/1586016120/Song_ERD.png "Star Schema")
-
-<img src="https://udacity-reviews-uploads.s3.us-west-2.amazonaws.com/_attachments/339318/1586016120/Song_ERD.png" alt="Star Schema" width="500" height="600">
-Image Credit: UDACITY
+Source: ***Udacity***
 
 ## 2. Requirements
 - python3
 - psycopg2
 - pandas
-- sql_queries
+- postgresql
+
 
 ## 3. Files
 This application is modularized into multiple python files
-- create_tables.py
-- etl.py (main program)
-- sql_queries.py (sql queries module)
-- test.ipynb
-- data (JSON logfiles)
-- etl.ipynb (prototype)
+- create_tables.py: Python script that loads SQL queries and creates the Schema and table
+- etl.py: ETL pipeline
+- sql_queries.py: sql queries module
+- data: Folder with Example JSON logfiles
 
-## 4. How to run
-Is recommended that you use Jupyter Notebooks
+## 4. Pre-requisites (Linux):
+#### Update and install PoasgreSQL
+`sudo apt-get update`
+`sudo apt-get install postgresql`
+By default, the postgres user has no password and can hence only connect if ran by the postgres system user. The following command will assign it:
+`$ sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"`
+`$ sudo -u postgres psql -c "CREATE DATABASE testdb;"`
+
+By default Postgres creates a postgres user and is the only user who can connect to the server. We’ll want to create ourselves on the server with superuser capabilities with the same name as our login name:
+`$ sudo -u postgres createuser --superuser $USER`
+Enter your desired password when prompted.
+
+Next, we’ll have to create a database with the same name as our login name since this is what Postgres expects by default when connecting to the server with your login name:
+`$ sudo -u postgres createdb $USER`
+
+you can still log in to postgres without creating any users by `$ psql postgres`
+
+## 5. How to run
+
 1. Download all files into a directory
-2. start a terminal window and make sure all requirements are installed
-3. execute the following command to create the tables `$ python3 create_tables.py`
-4. to extract, load and tranform the data into the database run the following command `$ python3 etl.py`
+2. Start a terminal window and make sure all requirements are installed
+3. Start PosgreSQL server: `$ sudo service postgresql start`
+4. execute the following command to create the tables `$ python3 create_tables.py`
+5. to extract, load and tranform the data into the database run the following command `$ python3 etl.py`
+6. To query the data: run `$ psql` and connect to the db with `$ \c <dataBaseName>`
 
+### PostgreSQL Notes psql server (M Sameer - stackoverflow):
+- \l - Display database
+- \c - Connect to database
+- \dn - List schemas
+- \dt - List tables inside public schemas
+- \dt schema1. - List tables inside particular schemas. For eg: 'schema1'.
 
-
+PosgreSQL Sources
+https://www.postgresqltutorial.com/psql-commands/
+https://launchschool.com/blog/how-to-install-postgres-for-linux
 
